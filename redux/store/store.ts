@@ -9,6 +9,7 @@ import {
   persistReducer,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import userReducer from "../features/auth/user";
 
 const persistConfig = {
   key: "root",
@@ -17,7 +18,7 @@ const persistConfig = {
 };
 
 const reducers = combineReducers({
-  //...
+  user: userReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
