@@ -5,7 +5,7 @@ const Form = ({ handleSendData }: { handleSendData: () => void }) => {
   return (
     <form
       onSubmit={handleSubmit(handleSendData)}
-      className="flex flex-col gap-y-5 w-[400px]"
+      className="flex flex-col gap-y-5 w-[500px]"
     >
       <input
         className="p-2 rounded-lg text-black"
