@@ -5,12 +5,12 @@ const nextConfig = {
     serverComponentsExternalPackages: ["mongoose"],
   },
 
-  webpack: (config) => {
-    config.experiments = {
-      topLevelAwait: true,
-    };
-    return config;
-  },
+  // webpack: (config) => {
+  //   config.experiments = {
+  //     topLevelAwait: true,
+  //   };
+  //   return config;
+  // },
 };
 
 module.exports = nextConfig;

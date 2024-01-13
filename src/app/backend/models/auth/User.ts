@@ -7,7 +7,11 @@ const User = new Schema(
     password: String,
     role: {
       type: String,
-      enum: ["student", "teacher", "school"],
+      enum: {
+        values: ["student", "teacher", "school"],
+        message: "Role is required",
+      },
+      trim: true,
     },
   },
 
