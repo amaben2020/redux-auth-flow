@@ -12,7 +12,12 @@ const RegisterPage = () => {
     setSelectedProfile(profile);
   };
 
-  const handleSendData = () => {};
+  const handleSendData = () => {
+    // make api call to extraReducer
+    // display toast
+    // display loading spinner
+    // direct to dashboard which is gonna be an authenticated route
+  };
 
   return (
     <div>
@@ -37,7 +42,7 @@ const RegisterPage = () => {
         {selectedProfile === "teacher" && <div>TEACHER</div>}
         {selectedProfile === "student" && <div>STUDENT</div>} */}
 
-        <h2>
+        <h2 className="my-3">
           You are creating account as a{" "}
           <span className="capitalize font-bold">{selectedProfile} </span>
         </h2>
