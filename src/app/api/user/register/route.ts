@@ -1,7 +1,7 @@
 import User from "@/app/backend/models/auth/User";
 import connectDB from "@/utils/connectDB";
-import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
+import { NextRequest, NextResponse } from "next/server";
 export const POST = async (req: NextRequest, res: NextResponse) => {
   try {
     const body = await req.json();
@@ -11,15 +11,24 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
 
     const saltRounds = 10;
 
-    const hashPassword = bcrypt.hash;
+    const hashedPassword = bcrypt.hash(body.password, saltRounds);
     const user = User.create({
       email: "",
-      password: "",
+      password: hashedPassword,
       username: "",
       role: "",
     });
     console.log(user);
+
+    return NextResponse.json({
+      message: "user create success",
+      user,
+    });
   } catch (error) {
     console.log("Error", error);
+    return NextResponse.json({
+      message: "user create fail",
+      error,
+    });
   }
 };
