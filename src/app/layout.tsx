@@ -1,3 +1,4 @@
+import ReduxProvider from "@/components/provider/ReduxProvider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";
@@ -20,7 +21,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ToastContainer position="top-center" />
-        {children}
+
+        <ReduxProvider>{children}</ReduxProvider>
       </body>
     </html>
   );
