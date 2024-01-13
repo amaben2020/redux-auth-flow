@@ -1,6 +1,4 @@
 const LoginPage = () => {
-  const userModels = ["student", "school", "teacher"];
-
   // create 3 forms and components that display these
 
   // use react hook form
