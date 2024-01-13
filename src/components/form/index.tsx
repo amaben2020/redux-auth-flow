@@ -1,12 +1,30 @@
 import { useForm } from "react-hook-form";
 
-const Form = ({ role }: { role: string }) => {
-  const { register } = useForm();
+const Form = ({ handleSendData }: { handleSendData: () => void }) => {
+  const { register, handleSubmit } = useForm();
   return (
-    <form>
-      <input type="text" {...register("username")} name="username" />
-      <input type="email" {...register("email")} name="email" />
-      <input type="password" {...register("password")} name="password" />
+    <form
+      onSubmit={handleSubmit(handleSendData)}
+      className="flex flex-col gap-y-5 w-[400px]"
+    >
+      <input
+        className="p-2 rounded-lg text-black"
+        type="text"
+        {...register("username")}
+        name="username"
+      />
+      <input
+        className="p-2 rounded-lg text-black"
+        type="email"
+        {...register("email")}
+        name="email"
+      />
+      <input
+        className="p-2 rounded-lg text-black"
+        type="password"
+        {...register("password")}
+        name="password"
+      />
 
       <button type="submit">Register</button>
     </form>

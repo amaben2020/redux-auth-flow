@@ -1,4 +1,5 @@
 "use client";
+import Form from "@/components/form";
 import { userProfiles } from "@/constants/userProfile";
 import { useState } from "react";
 type TProfile = "student" | "school" | "teacher";
@@ -9,6 +10,8 @@ const RegisterPage = () => {
   const handleProfileSelect = (profile: TProfile) => {
     setSelectedProfile(profile);
   };
+
+  const handleSendData = () => {};
 
   return (
     <div>
@@ -25,9 +28,11 @@ const RegisterPage = () => {
         ))}
       </div>
       <div className="py-5">
-        {selectedProfile === "school" && <div>SCHOOL</div>}
+        {/* {selectedProfile === "school" && <div>SCHOOL</div>}
         {selectedProfile === "teacher" && <div>TEACHER</div>}
-        {selectedProfile === "student" && <div>STUDENT</div>}
+        {selectedProfile === "student" && <div>STUDENT</div>} */}
+
+        <Form handleSendData={handleSendData} />
       </div>
     </div>
   );
