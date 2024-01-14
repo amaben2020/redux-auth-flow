@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
   //TODO: hover to expand dashboard
@@ -11,12 +12,12 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
 
   const pathname = usePathname();
   const path = pathname.split("/")[2];
-  console.log(pathname);
-  console.log(path);
+
   const DASHBOARD_LINKS = [
     {
       id: 0,
       url: `/dashboard/${path}/games`,
+      title: "Home",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -37,6 +38,7 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
     {
       id: 0,
       url: `/dashboard/${path}/games`,
+      title: "Games",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -55,21 +57,37 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
       ),
     },
   ];
+
+  const [isVisible, setIsVisible] = useState(false);
+  console.log(isVisible);
+
   return (
     <section>
       <header className="border p-4 rounded-lg">Dashboard Header</header>
-      <div className="flex mt-5 border py-4 rounded-lg justify-between">
-        <aside>
+      <div className="flex mt-5 border py-4 rounded-lg">
+        <aside
+          className={twMerge(
+            isVisible && "min-w-40",
+            "w-10 hover:w-40 transition-all ease-in-out duration-150 group",
+          )}
+        >
           {DASHBOARD_LINKS.map((link) => {
             return (
-              <Link href={link.url} key={link.id}>
-                {link.icon}
-              </Link>
+              <div
+                className="flex  gap-3 cursor-pointer"
+                key={link.id}
+                onMouseEnter={() => setIsVisible(true)}
+                // onMouseLeave={() => setIsVisible(false)}
+              >
+                <Link href={link.url} key={link.id}>
+                  {link.icon}
+                </Link>
+                {isVisible ? link.title : ""}
+              </div>
             );
           })}
         </aside>
-
-        <div className="basis-[85%]">{children}</div>
+        <div>{children}</div>
       </div>
     </section>
   );
