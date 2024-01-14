@@ -6,6 +6,8 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
   try {
     const { password, email, username, role } = await req.json();
 
+    console.log(password, email, username, role);
+
     await connectDB();
 
     const saltRounds = 10;

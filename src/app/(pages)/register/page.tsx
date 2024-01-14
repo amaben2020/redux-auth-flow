@@ -1,22 +1,49 @@
 "use client";
 import Form from "@/components/form";
 import { userProfiles } from "@/constants/userProfile";
+import { registerUser } from "@/redux/features/auth/services/user";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { twMerge } from "tailwind-merge";
 export type TProfile = "student" | "school" | "teacher";
 const RegisterPage = () => {
   const [selectedProfile, setSelectedProfile] = useState<TProfile>("school");
   const profiles = userProfiles;
 
+  const router = useRouter();
+
   const handleProfileSelect = (profile: TProfile) => {
     setSelectedProfile(profile);
   };
 
-  const handleSendData = () => {
-    // make api call to extraReducer
-    // display toast
-    // display loading spinner
-    // direct to dashboard which is gonna be an authenticated route
+  // use swr mutation to make post request
+
+  const handleSendData = async (data: any) => {
+    try {
+      console.log(data);
+
+      const { data: user } = await registerUser({
+        ...data,
+        role: selectedProfile,
+      });
+
+      console.log(user);
+
+      if (user.message.includes("fail")) {
+        toast.error("Register fail");
+        // router.push("/login");
+      }
+
+      toast.success("Register success");
+
+      // display toast for register success
+      // display loading spinner
+      // direct to dashboard which is gonna be an authenticated route
+      // redirect to login page
+    } catch (error) {
+      toast.error("Registration failed");
+    }
   };
 
   return (
