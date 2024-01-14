@@ -15,6 +15,8 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
+  // default is 5000 which is too long
+  timeout: 1000,
 };
 
 const reducers = combineReducers({
