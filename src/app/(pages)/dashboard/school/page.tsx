@@ -1,5 +1,7 @@
+import DashboardLayout from "../layout/dashboard-layout";
+
 const SchoolPage = () => {
-  return <div>SchoolPage</div>;
+  return <DashboardLayout>SchoolPage</DashboardLayout>;
 };
 
 export default SchoolPage;
