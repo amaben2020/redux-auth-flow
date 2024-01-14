@@ -1,7 +1,8 @@
 "use client";
+import { useAppSelector } from "@/redux/hooks";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { ReactNode, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { ReactNode, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
@@ -9,6 +10,18 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
   // icons should expand like discord when hovered
 
   //
+
+  const router = useRouter();
+
+  const user = useAppSelector((state) => state.user);
+
+  useEffect(() => {
+    if (!user.data.token) {
+      router.push("/login");
+    }
+  }, [router, user?.data.token]);
+
+  console.log(user.data);
 
   const pathname = usePathname();
   const path = pathname.split("/")[2];
@@ -63,7 +76,9 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <section>
-      <header className="border p-4 rounded-lg">Dashboard Header</header>
+      <header className="border p-4 rounded-lg">
+        Dashboard Header {user.loading === "idle" && user.data.email}
+      </header>
       <div className="flex mt-5 border py-4 rounded-lg">
         <aside
           className={twMerge(
