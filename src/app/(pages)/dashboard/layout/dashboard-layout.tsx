@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
@@ -58,19 +57,19 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
   ];
   return (
     <section>
-      <div className="flex">
-        <header>Dashboard Header</header>
+      <header className="border p-4 rounded-lg">Dashboard Header</header>
+      <div className="flex mt-5 border py-4 rounded-lg justify-between">
         <aside>
           {DASHBOARD_LINKS.map((link) => {
             return (
               <Link href={link.url} key={link.id}>
-                <Image src={link.icon} height={40} width={40} alt="" />
+                {link.icon}
               </Link>
             );
           })}
         </aside>
 
-        <div>{children}</div>
+        <div className="basis-[85%]">{children}</div>
       </div>
     </section>
   );

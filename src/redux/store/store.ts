@@ -8,13 +8,14 @@ import {
   REHYDRATE,
   persistReducer,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import sessionStorage from "redux-persist/es/storage/session";
 import userReducer from "../features/auth/user";
 
 const persistConfig = {
   key: "root",
   version: 1,
-  storage,
+  // storage,
+  storage: sessionStorage,
   // default is 5000 which is too long
   timeout: 1000,
 };
