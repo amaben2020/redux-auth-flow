@@ -21,27 +21,21 @@ const RegisterPage = () => {
 
   const handleSendData = async (data: any) => {
     try {
-      console.log(data);
-
       const { data: user } = await registerUser({
         ...data,
         role: selectedProfile,
       });
 
-      console.log(user);
+      if (user?.message === "user create success") {
+        toast.success("Register success");
+        router.push("/login");
+      }
 
       if (user.message.includes("fail")) {
         toast.error("Register fail");
-        // router.push("/login");
       }
-
-      toast.success("Register success");
-
-      // display toast for register success
-      // display loading spinner
-      // direct to dashboard which is gonna be an authenticated route
-      // redirect to login page
     } catch (error) {
+      console.log(error);
       toast.error("Registration failed");
     }
   };

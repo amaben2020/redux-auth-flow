@@ -13,13 +13,29 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     const saltRounds = 10;
 
     const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    const userInDB = await User.findOne({ email });
+    console.log("userInDB", userInDB);
+
+    //@ts-ignore
+    if (userInDB?.username === username || userInDB?.email === email) {
+      return NextResponse.json(
+        {
+          message: "user already exists",
+        },
+        {
+          status: 401,
+          statusText: "Unauthorized",
+        },
+      );
+    }
+
     const user = await User.create({
       email,
       password: hashedPassword,
       username,
       role,
     });
-    console.log(user);
 
     return NextResponse.json({
       message: "user create success",

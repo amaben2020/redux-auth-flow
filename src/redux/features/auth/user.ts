@@ -45,14 +45,13 @@ const userSlice = createSlice({
       //     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFsZ29ib3NzcyIsImVtYWlsIjoiYW1hYmVuMkBnbWFpbC5jb21tIiwiaWQiOiI2NWEyZDVjOWRlOTI1ZjgzYjk0YzE0NmQiLCJpYXQiOjE3MDUxNzIwMjF9.HIhmXVugzhjxx3xU-s5kEZ1S1EFpLRsXkcXwOWqDujw"
       // }
       // action should just be the user
-      const { _id, username, role, email, token } = action;
+      const { _id, username, role, email, token } = action.payload?.data.user;
+      console.log("STATE", state);
+      console.log(action);
+      state.data = { _id, username, role, email, token };
 
-      state.data._id = _id;
-      state.data.username = username;
-      state.data.role = role;
-      state.data.email = email;
-      state.data.token = token;
       state.loading = "idle";
+      console.log("after state", state);
     });
   },
 });

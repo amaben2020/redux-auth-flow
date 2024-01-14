@@ -1,20 +1,42 @@
-const LoginPage = () => {
-  // create 3 forms and components that display these
+"use client";
+import Form from "@/components/form";
+import { loginUser } from "@/redux/features/auth/services/user";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useState } from "react";
+import { toast } from "react-toastify";
+export type TProfile = "student" | "school" | "teacher";
+const RegisterPage = () => {
+  const [selectedProfile, setSelectedProfile] = useState<TProfile>("school");
 
-  // use react hook form
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state: any) => state.user);
+  console.log("USER", user);
 
-  // customize toast
+  // use swr mutation to make post request
 
-  // dispatch user based on response data to redux
+  const handleSendData = async (data: any) => {
+    try {
+      console.log(data);
 
-  // redirect to student or school or user dashboard based on role
+      dispatch(loginUser(data));
+    } catch (error) {
+      console.log(error);
+      toast.error("Registration failed");
+    }
+  };
 
-  return <div>LoginPage</div>;
+  return (
+    <div>
+      Login Page
+      <div className="py-5">
+        <h2 className="my-3">
+          You are creating account as a{" "}
+          <span className="capitalize font-bold">{selectedProfile} </span>
+        </h2>
+        <Form handleSendData={handleSendData} mode="login" />
+      </div>
+    </div>
+  );
 };
 
-export default LoginPage;
-
-//yaCIoEBU1KImwhxA
-//mongodb+srv://uzochukwubenamara:<password>@cluster0.i4ssd2b.mongodb.net/?retryWrites=true&w=majority
-
-// mongodb+srv://uzochukwubenamara:yaCIoEBU1KImwhxA@cluster0.i4ssd2b.mongodb.net/
+export default RegisterPage;
