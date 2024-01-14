@@ -3,7 +3,7 @@ import Form from "@/components/form";
 import { userProfiles } from "@/constants/userProfile";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
-type TProfile = "student" | "school" | "teacher";
+export type TProfile = "student" | "school" | "teacher";
 const RegisterPage = () => {
   const [selectedProfile, setSelectedProfile] = useState<TProfile>("school");
   const profiles = userProfiles;
