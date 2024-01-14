@@ -37,7 +37,7 @@ const Form = ({
         placeholder="password"
       />
 
-      <button type="submit">Register</button>
+      <button type="submit">{mode === "login" ? "Login" : "Register"}</button>
     </form>
   );
 };
