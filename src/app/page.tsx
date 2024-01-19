@@ -1,5 +1,4 @@
 export default function Home() {
-  // TODO: learn container query
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt ad,
