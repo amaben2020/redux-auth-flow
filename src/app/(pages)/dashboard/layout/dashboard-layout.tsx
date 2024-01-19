@@ -10,7 +10,8 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
   //TODO: hover to expand dashboard
   // icons should expand like discord when hovered
 
-  //
+  // TODO: add zod for user validation, email background when user logs in
+  // TODO: add zod for api validation
 
   const router = useRouter();
 
