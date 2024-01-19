@@ -3,7 +3,7 @@ import { logoutUser } from "@/redux/features/auth/user";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { renderLinks } from "../data";
 
@@ -27,25 +27,44 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
 
   const dispatch = useAppDispatch();
 
+  const headerRef = useRef<HTMLHeadingElement>(null);
+
+  const [headerHeightValue, setHeaderHeightValue] = useState<
+    number | undefined
+  >();
+
+  useEffect(() => {
+    if (headerRef.current) {
+      setHeaderHeightValue(headerRef.current.clientHeight);
+    }
+  }, []);
+
+  const calculatedHeight = `calc(100vh - ${headerHeightValue}px)`;
+
   return (
     <section>
-      <header className="border p-7 rounded-lg">
+      <header className="border p-7 rounded-t-lg" ref={headerRef}>
         Dashboard Header {user.loading === "idle" && user.data.email}
         <button onClick={() => dispatch(logoutUser())} className="button-base">
           Logout
         </button>
       </header>
-      <div className="flex border rounded-lg">
+      <div
+        className={`flex border rounded-b-lg h-[calc(100vh-${headerHeightValue}px)]`}
+        style={{
+          height: calculatedHeight,
+        }}
+      >
         <aside
           className={twMerge(
             isVisible && "min-w-40",
-            "w-10 hover:w-40 transition-all ease-in-out duration-150 group border h-full py-4",
+            "min-w-10 hover:w-40 transition-all ease-in-out duration-150 group border-l border-r",
           )}
         >
           {renderLinks(path).map((link) => {
             return (
               <div
-                className="flex gap-3 cursor-pointer"
+                className="flex gap-3 p-6 cursor-pointer "
                 key={link.id}
                 onMouseEnter={() => setIsVisible(true)}
                 // onMouseLeave={() => setIsVisible(false)}
@@ -58,7 +77,9 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
             );
           })}
         </aside>
-        <div>{children}</div>
+        <div className="w-full p-6 rounded-tl-lg overflow-hidden overflow-y-scroll max-h-fit">
+          {children}
+        </div>
       </div>
     </section>
   );
