@@ -13,12 +13,10 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   const user = useAppSelector((state) => state.user);
-
+  console.log(user?.data.token);
   useEffect(() => {
-    if (user.loading === "idle") {
-      if (!user.data.token) {
-        router.push("/login");
-      }
+    if (user.loading === "idle" && !user.data.token) {
+      router.push("/login");
     }
   }, [router, user.data.token, user.loading]);
 

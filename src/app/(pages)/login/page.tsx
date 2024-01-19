@@ -16,10 +16,13 @@ const LoginPage = () => {
   const handleSendData = async (data: any) => {
     try {
       dispatch(loginUser(data));
-      redirectBasedOnRole(user, router);
+      if (user?.data?.token) {
+        toast.success("Login Successful");
+        redirectBasedOnRole(user, router);
+      }
     } catch (error) {
       console.log(error);
-      toast.error("Registration failed");
+      toast.error("Login failed");
     }
   };
 
