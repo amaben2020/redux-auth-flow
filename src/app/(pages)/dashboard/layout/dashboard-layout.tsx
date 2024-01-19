@@ -1,5 +1,6 @@
 "use client";
-import { useAppSelector } from "@/redux/hooks";
+import { logoutUser } from "@/redux/features/auth/user";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react";
@@ -29,12 +30,14 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
   const path = pathname.split("/")[2];
 
   const [isVisible, setIsVisible] = useState(false);
-  console.log(isVisible);
+
+  const dispatch = useAppDispatch();
 
   return (
     <section>
       <header className="border p-4 rounded-lg">
         Dashboard Header {user.loading === "idle" && user.data.email}
+        <button onClick={() => dispatch(logoutUser())}>Logout</button>
       </header>
       <div className="flex mt-5 border py-4 rounded-lg">
         <aside

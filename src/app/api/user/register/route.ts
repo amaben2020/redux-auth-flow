@@ -43,9 +43,15 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     });
   } catch (error) {
     console.log("Error", error);
-    return NextResponse.json({
-      message: "user create fail",
-      error,
-    });
+    return NextResponse.json(
+      {
+        message: "Server error",
+        error,
+      },
+      {
+        status: 500,
+        statusText: "Server error",
+      },
+    );
   }
 };
