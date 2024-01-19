@@ -1,9 +1,8 @@
 "use client";
 import { logoutUser } from "@/redux/features/auth/user";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import useRedirectToLogin from "@/redux/hooks/redirect-to-login";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { renderLinks } from "../data";
@@ -11,8 +10,17 @@ import { renderLinks } from "../data";
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
   // TODO: add zod for user validation, email background when user logs in
 
+  const router = useRouter();
+
   const user = useAppSelector((state) => state.user);
-  useRedirectToLogin(user);
+
+  useEffect(() => {
+    if (user.loading === "idle") {
+      if (!user.data.token) {
+        router.push("/login");
+      }
+    }
+  }, [router, user.data.token, user.loading]);
 
   const pathname = usePathname();
   const path = pathname.split("/")[2];

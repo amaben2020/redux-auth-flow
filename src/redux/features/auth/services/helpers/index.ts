@@ -1,11 +1,15 @@
 export const redirectBasedOnRole = (user: any, router: any) => {
-  if (user.data.role.includes("school")) {
-    router.push("/dashboard/school");
-  }
-  if (user.data.role.includes("student")) {
-    router.push("/dashboard/student");
-  }
-  if (user.data.role.includes("teacher")) {
-    router.push("/dashboard/teacher");
+  switch (user?.data?.role) {
+    case "school": {
+      return router.push("/dashboard/school");
+    }
+    case "student": {
+      return router.push("/dashboard/student");
+    }
+    case "teacher": {
+      return router.push("/dashboard/teacher");
+    }
+    default:
+      return null;
   }
 };
