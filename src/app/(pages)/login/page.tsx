@@ -1,5 +1,5 @@
 "use client";
-import Form from "@/components/form";
+import LoginForm from "@/components/form/login";
 import { redirectBasedOnRole } from "@/redux/features/auth/services/helpers";
 import { loginUser } from "@/redux/features/auth/services/user";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -11,11 +11,7 @@ const LoginPage = () => {
   const user = useAppSelector((state) => state.user);
 
   const router = useRouter();
-  // use swr mutation to make post request
-
-  // useEffect(() => {
-  //   redirectBasedOnRole(user, router);
-  // }, [router, user]);
+  //TODO: use swr mutation to make post request
 
   const handleSendData = async (data: any) => {
     try {
@@ -28,10 +24,10 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
+    <div className="flex mx-auto flex-col items-center border rounded-lg p-10">
       Login Page
       <div className="py-5">
-        <Form handleSendData={handleSendData} mode="login" />
+        <LoginForm handleSendData={handleSendData} />
       </div>
     </div>
   );

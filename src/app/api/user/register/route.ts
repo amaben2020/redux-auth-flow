@@ -6,13 +6,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { registerSchema } from "../../schema/register";
 export const POST = async (req: NextRequest, res: NextResponse) => {
   try {
-    // const { password, email, username, role } = await req.json();
-
+    // validating with zod
     const { password, email, username, role } = registerSchema.parse(
       await req.json(),
     );
-
-    console.log(password, email, username, role);
 
     await connectDB();
 
@@ -21,7 +18,6 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const userInDB = await User.findOne({ email });
-    console.log("userInDB", userInDB);
 
     if (userInDB?.username === username || userInDB?.email === email) {
       return NextResponse.json(

@@ -1,10 +1,13 @@
+import { loginSchema } from "@/app/api/schema/login";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 const Form = ({
   handleSendData,
   mode,
 }: {
-  handleSendData: () => void;
+  handleSendData: (data: any) => void;
   mode?: "login" | "register";
 }) => {
   const { register, handleSubmit } = useForm();
