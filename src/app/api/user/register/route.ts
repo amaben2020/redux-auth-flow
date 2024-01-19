@@ -1,10 +1,16 @@
 import User from "@/app/backend/models/auth/User";
+import { zodMessageFormatter } from "@/redux/features/auth/services/helpers/schema";
 import connectDB from "@/utils/connectDB";
 import bcrypt from "bcrypt";
 import { NextRequest, NextResponse } from "next/server";
+import { registerSchema } from "../../schema/register";
 export const POST = async (req: NextRequest, res: NextResponse) => {
   try {
-    const { password, email, username, role } = await req.json();
+    // const { password, email, username, role } = await req.json();
+
+    const { password, email, username, role } = registerSchema.parse(
+      await req.json(),
+    );
 
     console.log(password, email, username, role);
 
@@ -17,7 +23,6 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     const userInDB = await User.findOne({ email });
     console.log("userInDB", userInDB);
 
-    //@ts-ignore
     if (userInDB?.username === username || userInDB?.email === email) {
       return NextResponse.json(
         {
@@ -41,16 +46,27 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
       message: "user create success",
       user,
     });
-  } catch (error) {
-    console.log("Error", error);
+  } catch (error: any) {
+    if (error?.issues.length > 0) {
+      return NextResponse.json(
+        {
+          message: zodMessageFormatter(error),
+        },
+        {
+          status: 404,
+          statusText: zodMessageFormatter(error),
+        },
+      );
+    }
+
     return NextResponse.json(
       {
-        message: "Server error",
+        message: error,
         error,
       },
       {
-        status: 500,
-        statusText: "Server error",
+        status: 404,
+        statusText: error,
       },
     );
   }

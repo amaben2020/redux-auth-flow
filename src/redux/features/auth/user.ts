@@ -43,14 +43,12 @@ const userSlice = createSlice({
       state.loading = "idle";
       state.error = action.error.message;
     });
-    builder.addCase(loginUser.fulfilled, (state, action) => {
-      const { _id, username, role, email, token } = action.payload?.data.user;
-      console.log("STATE", state);
-      console.log(action);
+    builder.addCase(loginUser.fulfilled, (state, action: any) => {
+      const { _id, username, role, email, token } = action.payload?.data?.user;
+
       state.data = { _id, username, role, email, token };
 
       state.loading = "idle";
-      console.log("after state", state);
     });
   },
 });

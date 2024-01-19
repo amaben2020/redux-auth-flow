@@ -3,6 +3,7 @@ import connectDB from "@/utils/connectDB";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { NextRequest, NextResponse } from "next/server";
+import { loginSchema } from "../../schema/login";
 interface User {
   _doc: {
     username: string;
@@ -16,7 +17,9 @@ interface User {
 }
 export const POST = async (req: NextRequest, res: NextResponse) => {
   try {
-    const { password, email } = await req.json();
+    // const { password, email } = await req.json();
+
+    const { password, email } = loginSchema.parse(await req.json());
 
     await connectDB();
 

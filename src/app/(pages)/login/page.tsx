@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 export type TProfile = "student" | "school" | "teacher";
-const RegisterPage = () => {
+const LoginPage = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
 
@@ -37,4 +37,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default LoginPage;
