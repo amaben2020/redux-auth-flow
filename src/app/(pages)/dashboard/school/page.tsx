@@ -1,8 +1,6 @@
-import DashboardLayout from "../layout/dashboard-layout";
-
 const SchoolPage = () => {
   return (
-    <DashboardLayout>
+    <section>
       <h1> SchoolPage </h1>
       <div>SCHOOL CARD</div>
       <div>
@@ -29,7 +27,7 @@ const SchoolPage = () => {
         sunt possimus obcaecati distinctio qui perferendis laboriosam alias
         eaque, officia ipsam.
       </div>
-    </DashboardLayout>
+    </section>
   );
 };
 

@@ -1,7 +1,5 @@
-import DashboardLayout from "../layout/dashboard-layout";
-
 const StudentPage = () => {
-  return <DashboardLayout>StudentPage</DashboardLayout>;
+  return <div>StudentPage</div>;
 };
 
 export default StudentPage;

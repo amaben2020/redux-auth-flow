@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { renderLinks } from "../data";
+import { renderLinks } from "./data";
 
 const DashboardLayout = ({ children }: { children: ReactNode }) => {
   // TODO: add zod for user validation, email background when user logs in
