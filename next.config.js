@@ -5,6 +5,8 @@ const nextConfig = {
     esmExternals: "loose",
     serverComponentsExternalPackages: ["mongoose"],
   },
+  reactStrictMode: true, // Enable React strict mode for improved error handling
+  swcMinify: true, // Enable SWC minification for improved performance
 
   // webpack: (config) => {
   //   config.experiments = {
@@ -16,13 +18,17 @@ const nextConfig = {
 
 // module.exports = nextConfig;
 
-// Configuration object tells the next-pwa plugin
-const withPWA = require("next-pwa")({
-  dest: "public", // Destination directory for the PWA files
-  disable: process.env.NODE_ENV === "development", // Disable PWA in development mode
-  register: true, // Register the PWA service worker
-  skipWaiting: true, // Skip waiting for service worker activation
+const withPWA = require("@ducanh2912/next-pwa").default({
+  dest: "public",
+  cacheOnFrontEndNav: true,
+  aggressiveFrontEndNavCaching: true,
+  reloadOnOnline: true,
+  swcMinify: true,
+  // disable: process.env.NODE_ENV === "development",
+  workboxOptions: {
+    disableDevLogs: true,
+  },
+  // ... other options you like
 });
-
 // Export the combined configuration for Next.js with PWA support
 module.exports = withPWA(nextConfig);
