@@ -1,0 +1,10 @@
+{
+  "theme_color": "#88361E",
+  "background_color": "#88361E",
+  "display": "browser",
+  "scope": "/",
+  "start_url": "/",
+  "name": "Izesan App",
+  "short_name": "Izesan",
+  "description": " Where tradition meets technology in language learning!"
+}
